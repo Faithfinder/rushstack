@@ -29,7 +29,9 @@ function createWebpackConfig({ env, argv, projectRoot, configOverride }) {
           filename: '[name].[contenthash].js',
           sourceMapFilename: '[name].[contenthash].js.map'
         }
-      : {},
+      : {
+          publicPath: '/'
+        },
     module: {
       rules: [
         {
@@ -215,7 +217,8 @@ function createWebpackConfig({ env, argv, projectRoot, configOverride }) {
     },
     devServer: {
       host: 'localhost',
-      port: 8080
+      port: process.env.HEFT_APP_PORT ?? 8080,
+      historyApiFallback: true,
     },
     // See here for documentation: https://webpack.js.org/configuration/devtool
     devtool: production ? undefined : 'eval-source-map',
